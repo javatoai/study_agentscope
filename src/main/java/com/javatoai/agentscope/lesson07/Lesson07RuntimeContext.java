@@ -62,7 +62,7 @@ public final class Lesson07RuntimeContext {
         System.out.println("[Agent] " + reply.getTextContent());
 
         System.out.println();
-        System.out.println(">>> 入门七课完成！阅读 README 继续 Harness / MCP / 生产部署。");
+        System.out.println(">>> 下一步: Lesson08StudyCoachAgent —— 综合复杂 Agent 示例");
     }
 
     private static ReActAgent buildAgent() {

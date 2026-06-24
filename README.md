@@ -26,7 +26,7 @@ mvn -q compile
 mvn -q exec:java -Dexec.mainClass=com.javatoai.agentscope.lesson01.Lesson01BasicReAct
 ```
 
-## 学习路线（7 课）
+## 学习路线（8 课）
 
 ```
 Lesson 01  ReActAgent 核心           call() + ModelRegistry
@@ -42,6 +42,8 @@ Lesson 05  多用户 / 多会话           HarnessAgent + RuntimeContext 隔离
 Lesson 06  结构化输出                call(..., StudySummary.class)
     ↓
 Lesson 07  RuntimeContext 注入       put(Class, POJO) → @Tool 参数
+    ↓
+Lesson 08  综合复杂 Agent ★          Harness + 多工具 + Middleware + 流式 + 结构化
 ```
 
 ## 各课运行命令
@@ -55,29 +57,45 @@ Lesson 07  RuntimeContext 注入       put(Class, POJO) → @Tool 参数
 | 05 | `com.javatoai.agentscope.lesson05.Lesson05MultiUserSession` | 是 |
 | 06 | `com.javatoai.agentscope.lesson06.Lesson06StructuredOutput` | 是 |
 | 07 | `com.javatoai.agentscope.lesson07.Lesson07RuntimeContext` | 是 |
+| 08 | `com.javatoai.agentscope.lesson08.Lesson08StudyCoachAgent` | 是 |
 
 示例：
 
 ```powershell
-mvn -q exec:java -Dexec.mainClass=com.javatoai.agentscope.lesson05.Lesson05MultiUserSession
+mvn -q exec:java -Dexec.mainClass=com.javatoai.agentscope.lesson08.Lesson08StudyCoachAgent
 ```
 
 ## 项目结构
 
 ```
 src/main/java/com/javatoai/agentscope/
-├── support/          # AgentConfig、EnvSupport、UserContext
+├── support/          # AgentConfig、EnvSupport、StreamEventPrinter
 ├── model/            # 结构化输出 Schema（StudySummary）
-├── tool/             # @Tool 工具类（TimeTools、UserTools）
-├── lesson01/         # Basic ReActAgent
-├── lesson02/         # HarnessAgent
-├── lesson03/         # streamEvents
-├── lesson04/         # Custom Tool
-├── lesson05/         # Multi-user session
-├── lesson06/         # Structured output
-└── lesson07/         # RuntimeContext injection
+├── middleware/       # RequestTrace / ModelTiming / DynamicPhase
+├── tool/             # TimeTools、UserTools、StudyTools
+├── lesson01/ … lesson07/
+└── lesson08/         # Study Coach 综合复杂 Agent ★
 
 .agentscope/workspace/AGENTS.md   # Harness 人设文件
+```
+
+### Lesson 08 — Study Coach（复杂 Agent）★
+
+**主类:** `lesson08/Lesson08StudyCoachAgent.java`
+
+四阶段编排，接近生产用法：
+
+| 阶段 | 能力 | 说明 |
+|------|------|------|
+| Phase 1 | Todo + 笔记工具 | 制定学习计划并持久化 |
+| Phase 2 | 多工具 + 会话记忆 | 时间 / 问候 / 笔记列表，同 sessionId 恢复上下文 |
+| Phase 3 | streamEvents | 流式输出下一步建议 |
+| Phase 4 | StudySummary | 结构化 JSON 供程序消费 |
+
+组合能力：`HarnessAgent` · 4 类工具 · 3 个 Middleware · `enableTaskList` · compaction · `RuntimeContext` 注入
+
+```powershell
+mvn -q exec:java -Dexec.mainClass=com.javatoai.agentscope.lesson08.Lesson08StudyCoachAgent
 ```
 
 ## 2.0 核心概念

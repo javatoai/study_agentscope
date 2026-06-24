@@ -7,11 +7,43 @@
     <groupId>com.javatoai</groupId>
     <artifactId>study_agentscope</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>AgentScope Java 2.0 Learning Cases</name>
+    <description>Progressive learning examples for AgentScope Java 2.0</description>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <agentscope.version>2.0.0-RC1</agentscope.version>
     </properties>
 
+    <dependencies>
+        <!-- HarnessAgent = ReActAgent + workspace + memory + session persistence -->
+        <dependency>
+            <groupId>io.agentscope</groupId>
+            <artifactId>agentscope-harness</artifactId>
+            <version>${agentscope.version}</version>
+        </dependency>
+        <!-- 消除 "No SLF4J providers were found" 警告 -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>2.0.17</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.5.0</version>
+                <configuration>
+                    <!-- mainClass set via -Dexec.mainClass -->
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

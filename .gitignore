@@ -37,3 +37,9 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### AgentScope runtime (keep workspace template) ###
+.agentscope/workspace/agents/
+.agentscope/workspace/memory/
+.agentscope/workspace/plans/
+.agentscope/workspace/skills/
