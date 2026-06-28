@@ -111,7 +111,8 @@ class ApprovalMiddleware implements MiddlewareBase {
 
     @Override
     public Flux<AgentEvent> onActing(
-            Agent agent, ActingInput input, Function<ActingInput, Flux<AgentEvent>> next) {
+            Agent agent, RuntimeContext rc, ActingInput input,
+            Function<ActingInput, Flux<AgentEvent>> next) {
 
         String toolNames = input.toolCalls().stream()
                 .map(ToolUseBlock::getName)

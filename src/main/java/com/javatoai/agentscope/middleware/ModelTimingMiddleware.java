@@ -1,6 +1,7 @@
 package com.javatoai.agentscope.middleware;
 
 import io.agentscope.core.agent.Agent;
+import io.agentscope.core.agent.RuntimeContext;
 import io.agentscope.core.event.AgentEvent;
 import io.agentscope.core.middleware.MiddlewareBase;
 import io.agentscope.core.middleware.ModelCallInput;
@@ -15,7 +16,8 @@ public final class ModelTimingMiddleware implements MiddlewareBase {
 
     @Override
     public Flux<AgentEvent> onModelCall(
-            Agent agent, ModelCallInput input, Function<ModelCallInput, Flux<AgentEvent>> next) {
+            Agent agent, RuntimeContext rc, ModelCallInput input,
+            Function<ModelCallInput, Flux<AgentEvent>> next) {
         long startNanos = System.nanoTime();
         String modelName = input.model().getClass().getSimpleName();
         return next.apply(input)

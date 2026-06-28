@@ -99,7 +99,8 @@ class ContentFilterMiddleware implements MiddlewareBase {
 
     @Override
     public Flux<AgentEvent> onAgent(
-            Agent agent, AgentInput input, Function<AgentInput, Flux<AgentEvent>> next) {
+            Agent agent, RuntimeContext rc, AgentInput input,
+            Function<AgentInput, Flux<AgentEvent>> next) {
 
         System.out.println("  [Security] 开始扫描...");
         return next.apply(input)

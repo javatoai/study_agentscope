@@ -92,7 +92,8 @@ class TokenBudgetMiddleware implements MiddlewareBase {
 
     @Override
     public Flux<AgentEvent> onModelCall(
-            Agent agent, ModelCallInput input, Function<ModelCallInput, Flux<AgentEvent>> next) {
+            Agent agent, RuntimeContext rc, ModelCallInput input,
+            Function<ModelCallInput, Flux<AgentEvent>> next) {
 
         long used = totalTokensUsed.get();
         if (used >= budgetTokens) {

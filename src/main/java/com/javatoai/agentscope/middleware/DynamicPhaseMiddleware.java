@@ -1,6 +1,7 @@
 package com.javatoai.agentscope.middleware;
 
 import io.agentscope.core.agent.Agent;
+import io.agentscope.core.agent.RuntimeContext;
 import io.agentscope.core.middleware.MiddlewareBase;
 import reactor.core.publisher.Mono;
 
@@ -18,7 +19,7 @@ public final class DynamicPhaseMiddleware implements MiddlewareBase {
     }
 
     @Override
-    public Mono<String> onSystemPrompt(Agent agent, String currentPrompt) {
+    public Mono<String> onSystemPrompt(Agent agent, RuntimeContext rc, String currentPrompt) {
         return Mono.just(currentPrompt
                 + "\n\n## Current Phase\n"
                 + phaseSupplier.get()
